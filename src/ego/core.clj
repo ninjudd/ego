@@ -7,7 +7,7 @@
    the id's type. If this function returns false, an error will be thrown."
   [^String string & [expected]]
   (let [parts (.split string "-")
-        untyped (zero? (alength parts))
+        untyped (= 1 (alength parts))
         type (when-not untyped
                (keyword (aget parts 0)))
         id (aget parts (if untyped 0 1))]
