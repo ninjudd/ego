@@ -1,4 +1,4 @@
-(defproject ego "0.1.0"
+(defproject ego "0.1.1-SNAPSHOT"
   :description "A library for working with a simple 'id' format."
   :dependencies [[clojure "1.2.1"]
-                 [clojure-useful "0.3.8"]])
+                 [useful "0.4.0"]])
