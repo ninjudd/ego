@@ -17,3 +17,10 @@
                       string (join ", " (map name expected)))
               "node-id's type was not what was expected"))
     [type id]))
+
+(defn type-name
+  "Given an id, return its type as a string."
+  [id]
+  (-> (split-id id)
+      first
+      name))
