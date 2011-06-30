@@ -18,9 +18,14 @@
               "node-id's type was not what was expected"))
     [type id]))
 
+(defn type-key
+  "Given an id or type, return its type as a keyword."
+  [type-or-id]
+  (if (keyword? type-or-id)
+    type-or-id
+    (first (split-id type-or-id))))
+
 (defn type-name
-  "Given an id, return its type as a string."
-  [id]
-  (-> (split-id id)
-      first
-      name))
+  "Given an id or type, return its type as a string."
+  [type-or-id]
+  (name (type-key type-or-id)))
