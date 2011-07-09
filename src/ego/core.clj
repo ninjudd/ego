@@ -29,3 +29,10 @@
   "Given an id or type, return its type as a string."
   [type-or-id]
   (name (type-key type-or-id)))
+
+(defn type?
+  "Check to see if the type of id matches on of the given set of type keywords."
+  [type id]
+  (if (set? type)
+    (contains? type (type-key id))
+    (.startsWith ^String id (str (name type) "-"))))
