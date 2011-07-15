@@ -3,7 +3,7 @@
         [clojure.string :only [join]]))
 
 (defn split-id
-  "Split an id on -. Optionally pass a function (such as a set) that will be passed
+  "Split an id on dash. Optionally pass a function (such as a set) that will be passed
    the id's type. If this function returns false, an error will be thrown."
   [^String string & [expected]]
   (let [parts (.split string "-")
@@ -17,6 +17,13 @@
                       string (join ", " (map name expected)))
               "node-id's type was not what was expected"))
     [type id]))
+
+(defn id-number
+  "Split the provided id and convert to a Long. Optionally, pass a function to validate the id."
+  [id & [expected]]
+  (if (string? id)
+    (Long. (last (split-id id expected)))
+    id))
 
 (defn type-key
   "Given an id or type, return its type as a keyword."
