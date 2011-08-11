@@ -11,6 +11,17 @@
     (is (thrown-with-msg? Exception #"doesn't match" (split-id "foo-1" #{:bar})))
     (is (thrown-with-msg? Exception #"was not what" (split-id "foo-1" (constantly false))))))
 
+(deftest test-id-number
+  (testing "id-number returns a Long"
+    (is (= 1 (id-number "robot-1")))
+    (is (= Long (class (id-number "robot-1"))))))
+
+(deftest test-make-id
+  (testing "make-id works with raw numbers"
+    (is (= "robot-4" (make-id :robot 4))))
+  (testing "make-id works replaces type of existing id"
+    (is (= "robot-11" (make-id :robot "person-11")))))
+
 (deftest test-type-key
   (testing "type-key returns the type of an id"
     (is (= :foo (type-key "foo-1"))))
