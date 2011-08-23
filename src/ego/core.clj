@@ -23,7 +23,7 @@
   "Split the provided id and convert to a Long. Optionally, pass a function to validate the id."
   [id & [expected]]
   (if (string? id)
-    (Long. (last (split-id id expected)))
+    (Long. ^String (last (split-id id expected)))
     id))
 
 (defn make-id
