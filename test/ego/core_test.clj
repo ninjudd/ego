@@ -40,4 +40,6 @@
     (is (not (type? :foo "bar-11"))))
   (testing "type? checks the type of id with a set"
     (is (type? #{:foo :bar} "bar-1"))
-    (is (not (type? #{:foo :bar} "baz-11")))))
+    (is (not (type? #{:foo :bar} "baz-11"))))
+  (testing "handles untyped nodes with type-looking names"
+    (is (not (type? :foo "foo")))))

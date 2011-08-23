@@ -45,7 +45,12 @@
 
 (defn type?
   "Check to see if the type of id matches on of the given set of type keywords."
-  [type id]
+  [type ^String id]
   (if (set? type)
     (contains? type (type-key id))
-    (.startsWith ^String id (str (name type) "-"))))
+    (let [type-str ^String (name type)
+          type-len (.length type-str)
+          id-len (.length id)]
+      (and (> id-len type-len)
+           (.startsWith id type-str)
+           (= \- (.charAt id type-len))))))
