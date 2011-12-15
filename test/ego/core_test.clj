@@ -1,45 +1,45 @@
 (ns ego.core-test
   (:use ego.core
-        clojure.test))
+        midje.sweet))
 
-(deftest test-split-id
-  (testing "split-id returns a vector of keyword type and string id"
-    (is (= [:foo "1"] (split-id "foo-1"))))
-  (testing "split-id can take a function"
-    (is (= [:foo "1"] (split-id "foo-1" #{:foo}))))
-  (testing "split-id throws an exception when function returns false"
-    (is (thrown-with-msg? Exception #"doesn't match" (split-id "foo-1" #{:bar})))
-    (is (thrown-with-msg? Exception #"was not what" (split-id "foo-1" (constantly false))))))
+;; #
+(fact "split-id returns a vector of keyword type and string id"
+  (split-id "foo-1") => (just [:foo "1"]))
 
-(deftest test-id-number
-  (testing "id-number returns a Long"
-    (is (= 1 (id-number "robot-1")))
-    (is (= Long (class (id-number "robot-1"))))))
+(fact "split-id can take a function"
+  (split-id "foo-1" #{:foo}) => (just [:foo "1"]))
 
-(deftest test-make-id
-  (testing "make-id works with raw numbers"
-    (is (= "robot-4" (make-id :robot 4))))
-  (testing "make-id works replaces type of existing id"
-    (is (= "robot-11" (make-id :robot "person-11")))))
+(fact "split-id throws an exception when function returns false"
+  (split-id "foo-1" #{:bar}) => (throws Exception #"doesn't match")
+  (split-id "foo-1" (constantly false)) => (throws Exception #"was not what"))
 
-(deftest test-type-key
-  (testing "type-key returns the type of an id"
-    (is (= :foo (type-key "foo-1"))))
-  (testing "type-key just returns a type directly"
-    (is (= :bar (type-key :bar)))))
+(fact "id-number returns a Long"
+  (id-number "robot-1") => 1
+  (class (id-number "robot-1")) => Long)
 
-(deftest test-type-name
-  (testing "type-name returns the type of an id as a string"
-    (is (= "foo" (type-name "foo-1"))))
-  (testing "type-name just returns a type as a string"
-    (is (= "bar" (type-name :bar)))))
+(fact "make-id works with raw numbers"
+  (make-id :robot 4) => "robot-4")
 
-(deftest test-type?
-  (testing "type? checks the type of id"
-    (is (type? :foo "foo-1"))
-    (is (not (type? :foo "bar-11"))))
-  (testing "type? checks the type of id with a set"
-    (is (type? #{:foo :bar} "bar-1"))
-    (is (not (type? #{:foo :bar} "baz-11"))))
-  (testing "handles untyped nodes with type-looking names"
-    (is (not (type? :foo "foo")))))
+(fact "make-id works replaces type of existing id"
+  (make-id :robot "person-11") => "robot-11")
+
+(fact "type-key returns the type of an id"
+  (type-key "foo-1") => :foo)
+
+(fact "type-key just returns a type directly"
+  (type-key :bar) => :bar)
+
+(fact "type-name returns the type of an id as a string"
+  (type-name "foo-1") => "foo"
+  (type-name :bar) => "bar")
+
+(fact "type? checks the type of id"
+  (type? :foo "foo-1") => true
+  (type? :foo "bar-11") => false)
+
+(fact "type? checks the type of id with a set"
+  (type? #{:foo :bar} "bar-1") => true
+  (type? #{:foo :bar} "baz-11") => false)
+
+(fact "handles untyped nodes with type-looking names"
+  (type? :foo "foo") => false)
