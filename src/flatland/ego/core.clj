@@ -1,6 +1,6 @@
-(ns ego.core
-  (:use [useful.fn :only [fix]]
-        [useful.utils :only [verify]]
+(ns flatland.ego.core
+  (:use [flatland.useful.fn :only [fix]]
+        [flatland.useful.utils :only [verify]]
         [clojure.string :only [join]]))
 
 (defn split-id*

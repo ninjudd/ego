@@ -1,5 +1,5 @@
-(ns ego.core-test
-  (:use ego.core
+(ns flatland.ego.core-test
+  (:use flatland.ego.core
         clojure.test))
 
 (deftest test-split-id
