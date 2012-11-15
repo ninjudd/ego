@@ -1,4 +1,4 @@
-(defproject ego "0.1.8"
+(defproject ego "0.1.9"
   :url "https://github.com/flatland/ego"
   :license {:name "Eclipse Public License - v 1.0"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
