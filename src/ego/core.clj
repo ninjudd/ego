@@ -1,15 +1,15 @@
 (ns ego.core
+  (:require [clojure.string :as s])
   (:use [useful.fn :only [fix]]
-        [useful.utils :only [verify]]
-        [clojure.string :only [join]]))
+        [useful.utils :only [verify]]))
 
 (defn split-id*
   "Split an id on dash, returning the type as a string followed by the identifier."
   [^String id]
-  (let [parts (.split id "-" 2)]
-    (if (= 1 (alength parts))
-      [nil (aget parts 0)]
-      (vec parts))))
+  (let [parts (s/split id #"-" 2)]
+    (if (= 1 (count parts))
+      [nil (first parts)]
+      parts)))
 
 (defn split-id
   "Split an id on dash. Optionally pass a function (such as a set) that will be passed
@@ -21,7 +21,7 @@
     (verify (or (nil? expected) (expected type))
             (if (set? expected)
               (format "node-id %s doesn't match type(s): %s"
-                      id (join ", " (map name expected)))
+                      id (s/join ", " (map name expected)))
               "node-id's type was not what was expected"))
     [type ident]))
 
@@ -32,10 +32,13 @@
     (Long. ^String (last (split-id id expected)))
     id))
 
+(defn make-id*
+  [type id]
+  (str (name type) "-" id))
+
 (defn make-id
   [type id]
-  (str (name type) "-"
-       (fix id string? (comp last split-id))))
+  (make-id* type (fix id string? (comp last split-id))))
 
 (defn type-key
   "Given an id or type, return its type as a keyword."
