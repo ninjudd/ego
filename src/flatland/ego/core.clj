@@ -1,7 +1,7 @@
 (ns flatland.ego.core
-  (:require [clojure.string :as s])
-  (:use [useful.fn :only [fix]]
-        [useful.utils :only [verify]]))
+  (:require [clojure.string :as s]
+            [flatland.useful.fn :refer [fix]]
+            [flatland.useful.utils :refer [verify]]))
 
 (defn split-id*
   "Split an id on dash, returning the type as a string followed by the identifier."
