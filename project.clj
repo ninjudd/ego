@@ -1,4 +1,4 @@
-(defproject org.flatland/ego "0.1.9-SNAPSHOT"
+(defproject org.flatland/ego "0.2.0-SNAPSHOT"
   :url "https://github.com/flatland/ego"
   :license {:name "Eclipse Public License - v 1.0"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
