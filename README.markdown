@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/flatland/ego.png)](http://travis-ci.org/flatland/ego)
+
 # Introduction
 
 Ego is a library for working with a simple id format.
